@@ -181,12 +181,12 @@ def scam(imgspage, lim):
 __help__ = f"""
 *Commands:* 
 
-• /reverse: Does a reverse image search of the media which it was replied to.
+• `/reverse: Does a reverse image search of the media which it was replied to.
 
 Reports bugs at @ZeroBotSupport
 """
 
-__mod_name__ = "Image Search"
+__mod_name__ = "Reverse"
 
 REVERSE_HANDLER = DisableAbleCommandHandler(
     "reverse", reverse, pass_args=True, admin_ok=True
