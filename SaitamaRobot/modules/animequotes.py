@@ -20,17 +20,14 @@ def animequotes(update: Update, context: CallbackContext):
     reply_photo(
         random.choice(animequotes_strings.QUOTES_IMG))
 
-__help__ = """
- • `/aq`*:* gives random anime quotes
- 
-"""
-ANIMEQUOTES_HANDLER = DisableAbleCommandHandler("aq", aq)
+__help__ ³!= """
+ • `/animequotes`*:* gives random anime quotes)
 
 dispatcher.add_handler(ANIMEQUOTES_HANDLER)
 
 __mod_name__ = "Anime Quotes"
 __command_list__ = [
-    "aq"
+    "animequotes"
 ]
 __handlers__ = [
     ANIMEQUOTES_HANDLER
