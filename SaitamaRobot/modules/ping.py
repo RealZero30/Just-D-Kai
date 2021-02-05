@@ -91,7 +91,7 @@ def ping(update: Update, context: CallbackContext):
 def pingall(update: Update, context: CallbackContext):
     to_ping = ["Kaizoku", "Kayo", "Telegram", "Jikan"]
     pinged_list = ping_func(to_ping)
-    pinged_list.insert(2, ""))
+    pinged_list.insert(2, "")
 
     reply_msg = "⏱Ping results are:\n"
     reply_msg += "\n".join(pinged_list)
