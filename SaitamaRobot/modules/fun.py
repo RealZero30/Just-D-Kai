@@ -3,32 +3,13 @@ import random
 import time
 
 import SaitamaRobot.modules.fun_strings as fun_strings
-import SaitamaRobot.modules.animequotes_strings as animequotes_strings
-import SaitamaRobot.modules.sql.chatbot_sql as sql
 from SaitamaRobot import dispatcher
 from SaitamaRobot.modules.disable import DisableAbleCommandHandler
-from coffeehouse.api import API
-from coffeehouse.exception import CoffeeHouseError as CFError
-from coffeehouse.lydia import LydiaAI
-from SaitamaRobot import AI_API_KEY, OWNER_ID, SUPPORT_CHAT, dispatcher
 from SaitamaRobot.modules.helper_funcs.chat_status import is_user_admin
 from SaitamaRobot.modules.helper_funcs.extraction import extract_user
 from telegram import ChatPermissions, ParseMode, Update
-from SaitamaRobot.modules.helper_funcs.filters import CustomFilters
-from SaitamaRobot.modules.log_channel import gloggable
-from telegram import Update
-from telegram.error import BadRequest, RetryAfter, Unauthorized
-from telegram.ext import (
-    CallbackContext,
-    CommandHandler,
-    Filters,
-    MessageHandler,
-    run_async,
-)
-from telegram.utils.helpers import mention_html
-
-CoffeeHouseAPI = API(AI_API_KEY)
-api_client = LydiaAI(CoffeeHouseAPI)
+from telegram.error import BadRequest
+from telegram.ext import CallbackContext, run_async
 
 GIF_ID = "CgACAgQAAx0CSVUvGgAC7KpfWxMrgGyQs-GUUJgt-TSO8cOIDgACaAgAAlZD0VHT3Zynpr5nGxsE"
 
@@ -342,6 +323,7 @@ def weebify(update: Update, context: CallbackContext):
     else:
         message.reply_text(string)
 
+
 @run_async
 def animequotes(update: Update, context: CallbackContext):
     message = update.effective_message
@@ -349,121 +331,6 @@ def animequotes(update: Update, context: CallbackContext):
     reply_photo = message.reply_to_message.reply_photo if message.reply_to_message else message.reply_photo
     reply_photo(
         random.choice(animequotes_strings.QUOTES_IMG))
-
-@run_async
-@user_admin
-@gloggable
-def add_chat(update: Update, context: CallbackContext):
-    global api_client
-    chat = update.effective_chat
-    msg = update.effective_message
-    user = update.effective_user
-    is_chat = sql.is_chat(chat.id)
-    if chat.type == "private":
-        msg.reply_text("You can't enable AI in PM.")
-        return
-
-    if not is_chat:
-        ses = api_client.create_session()
-        ses_id = str(ses.id)
-        expires = str(ses.expires)
-        sql.set_ses(chat.id, ses_id, expires)
-        msg.reply_text("AI successfully enabled for this chat!")
-        message = (
-            f"<b>{html.escape(chat.title)}:</b>\n"
-            f"#AI_ENABLED\n"
-            f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
-        )
-        return message
-    else:
-        msg.reply_text("AI is already enabled for this chat!")
-        return ""
-
-
-@run_async
-@user_admin
-@gloggable
-def remove_chat(update: Update, context: CallbackContext):
-    msg = update.effective_message
-    chat = update.effective_chat
-    user = update.effective_user
-    is_chat = sql.is_chat(chat.id)
-    if not is_chat:
-        msg.reply_text("AI isn't enabled here in the first place!")
-        return ""
-    else:
-        sql.rem_chat(chat.id)
-        msg.reply_text("AI disabled successfully!")
-        message = (
-            f"<b>{html.escape(chat.title)}:</b>\n"
-            f"#AI_DISABLED\n"
-            f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
-        )
-        return message
-
-
-def check_message(context: CallbackContext, message):
-    reply_msg = message.reply_to_message
-    if message.text.lower() == "saitama":
-        return True
-    if reply_msg:
-        if reply_msg.from_user.id == context.bot.get_me().id:
-            return True
-    else:
-        return False
-
-
-@run_async
-def chatbot(update: Update, context: CallbackContext):
-    global api_client
-    msg = update.effective_message
-    chat_id = update.effective_chat.id
-    is_chat = sql.is_chat(chat_id)
-    bot = context.bot
-    if not is_chat:
-        return
-    if msg.text and not msg.document:
-        if not check_message(context, msg):
-            return
-        sesh, exp = sql.get_ses(chat_id)
-        query = msg.text
-        try:
-            if int(exp) < time():
-                ses = api_client.create_session()
-                ses_id = str(ses.id)
-                expires = str(ses.expires)
-                sql.set_ses(chat_id, ses_id, expires)
-                sesh, exp = sql.get_ses(chat_id)
-        except ValueError:
-            pass
-        try:
-            bot.send_chat_action(chat_id, action="typing")
-            rep = api_client.think_thought(sesh, query)
-            sleep(0.3)
-            msg.reply_text(rep, timeout=60)
-        except CFError as e:
-            pass
-            # bot.send_message(OWNER_ID,
-            #                 f"Chatbot error: {e} occurred in {chat_id}!")
-
-
-@run_async
-def list_chatbot_chats(update: Update, context: CallbackContext):
-    chats = sql.get_all_chats()
-    text = "<b>AI-Enabled Chats</b>\n"
-    for chat in chats:
-        try:
-            x = context.bot.get_chat(int(*chat))
-            name = x.title or x.first_name
-            text += f"• <code>{name}</code>\n"
-        except BadRequest:
-            sql.rem_chat(*chat)
-        except Unauthorized:
-            sql.rem_chat(*chat)
-        except RetryAfter as e:
-            sleep(e.retry_after)
-    update.effective_message.reply_text(text, parse_mode="HTML")
-
 
 
 
@@ -483,12 +350,6 @@ __help__ = """
  • `/pat`*:* pats a user, or get patted
  • `/8ball`*:* predicts using 8ball method 
  • `/animequotes`*:* gives random anime quotes
-*Admins only:*
- • `/addchat`*:* Enables Chatbot mode in the chat.
- • `/rmchat`*:* Disables Chatbot mode in the chat.
-
-Reports bugs at @{SUPPORT_CHAT}
-*Powered by CoffeeHouse* (https://coffeehouse.intellivoid.net/) from @Intellivoid
 """
 
 SANITIZE_HANDLER = DisableAbleCommandHandler("sanitize", sanitize)
@@ -506,16 +367,6 @@ TABLE_HANDLER = DisableAbleCommandHandler("table", table)
 SHOUT_HANDLER = DisableAbleCommandHandler("shout", shout)
 WEEBIFY_HANDLER = DisableAbleCommandHandler("weebify", weebify)
 ANIMEQUOTES_HANDLER = DisableAbleCommandHandler("animequotes", animequotes)
-ADD_CHAT_HANDLER = CommandHandler("addchat", add_chat)
-REMOVE_CHAT_HANDLER = CommandHandler("rmchat", remove_chat)
-CHATBOT_HANDLER = MessageHandler(
-    Filters.text
-    & (~Filters.regex(r"^#[^\s]+") & ~Filters.regex(r"^!") & ~Filters.regex(r"^\/")),
-    chatbot,
-)
-LIST_CB_CHATS_HANDLER = CommandHandler(
-    "listaichats", list_chatbot_chats, filters=CustomFilters.dev_filter
-)
 
 
 dispatcher.add_handler(WEEBIFY_HANDLER)
@@ -533,11 +384,6 @@ dispatcher.add_handler(DECIDE_HANDLER)
 dispatcher.add_handler(EIGHTBALL_HANDLER)
 dispatcher.add_handler(TABLE_HANDLER)
 dispatcher.add_handler(ANIMEQUOTES_HANDLER)
-dispatcher.add_handler(ADD_CHAT_HANDLER)
-dispatcher.add_handler(REMOVE_CHAT_HANDLER)
-dispatcher.add_handler(CHATBOT_HANDLER)
-dispatcher.add_handler(LIST_CB_CHATS_HANDLER)
-
 
 __mod_name__ = "Fun"
 __command_list__ = [
@@ -556,9 +402,6 @@ __command_list__ = [
     "weebify",
     "8ball",
     "animequotes",
-    "addchat",
-    "rmchat", 
-    "listaichats"
 ]
 __handlers__ = [
     RUNS_HANDLER,
@@ -576,9 +419,4 @@ __handlers__ = [
     WEEBIFY_HANDLER,
     EIGHTBALL_HANDLER,
     ANIMEQUOTES_HANDLER,
-    ADD_CHAT_HANDLER,
-    REMOVE_CHAT_HANDLER,
-    CHATBOT_HANDLER,
-    LIST_CB_CHATS_HANDLER,
-    
 ]
