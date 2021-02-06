@@ -94,7 +94,7 @@ __help__ = """
  • `/lastfm`*:* returns what you're scrobbling on last.fm
 """
 
-__mod_name__ = "Last.FM"
+__mod_name__ = "Last FM"
 
 SET_USER_HANDLER = CommandHandler("setuser", set_user, pass_args=True)
 CLEAR_USER_HANDLER = CommandHandler("clearuser", clear_user)
