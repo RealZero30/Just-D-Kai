@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://telegra.ph/file/b6d84537dc1b74f44a238.jpg">
+  <img src="https://telegra.ph/file/e01e8eb54681ca24836f5.jpg">
 </p>
 
 # Chisaki Kai 
