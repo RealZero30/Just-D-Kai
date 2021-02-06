@@ -356,7 +356,6 @@ EIGHTBALL_HANDLER = DisableAbleCommandHandler("8ball", eightball)
 TABLE_HANDLER = DisableAbleCommandHandler("table", table)
 SHOUT_HANDLER = DisableAbleCommandHandler("shout", shout)
 WEEBIFY_HANDLER = DisableAbleCommandHandler("weebify", weebify)
-ANIMEQUOTES_HANDLER = DisableAbleCommandHandler("animequotes", animequotes)
 
 
 dispatcher.add_handler(WEEBIFY_HANDLER)
