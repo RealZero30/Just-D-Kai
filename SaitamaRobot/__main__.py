@@ -77,7 +77,7 @@ Hi {}, my name is {}!
 // I am an Anime themed group management bot with a lot of Special Features.
 You can find the list of available commands with /help.
 ==========================
-*Maintained By :* [Zero](https://t.me/Anomaliii)
+`Maintained By` [Zero](https://t.me/Anomaliii)
 ==========================
 Wanna Add me to your Group? Just click the button below!
 """
