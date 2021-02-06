@@ -3,6 +3,7 @@ import random
 import time
 
 import SaitamaRobot.modules.fun_strings as fun_strings
+import SaitamaRobot.modules.animequotes_strings as animequotes_strings
 from SaitamaRobot import dispatcher
 from SaitamaRobot.modules.disable import DisableAbleCommandHandler
 from SaitamaRobot.modules.helper_funcs.chat_status import is_user_admin
@@ -323,6 +324,15 @@ def weebify(update: Update, context: CallbackContext):
     else:
         message.reply_text(string)
 
+@run_async
+def animequotes(update: Update, context: CallbackContext):
+    message = update.effective_message
+    name = message.reply_to_message.from_user.first_name if message.reply_to_message else message.from_user.first_name
+    reply_photo = message.reply_to_message.reply_photo if message.reply_to_message else message.reply_photo
+    reply_photo(
+        random.choice(animequotes_strings.QUOTES_IMG))
+
+
 
 __help__ = """
  • `/runs`*:* reply a random string from an array of replies
@@ -356,6 +366,7 @@ EIGHTBALL_HANDLER = DisableAbleCommandHandler("8ball", eightball)
 TABLE_HANDLER = DisableAbleCommandHandler("table", table)
 SHOUT_HANDLER = DisableAbleCommandHandler("shout", shout)
 WEEBIFY_HANDLER = DisableAbleCommandHandler("weebify", weebify)
+ANIMEQUOTES_HANDLER = DisableAbleCommandHandler("animequotes", animequotes)
 
 
 dispatcher.add_handler(WEEBIFY_HANDLER)
@@ -372,6 +383,7 @@ dispatcher.add_handler(RLG_HANDLER)
 dispatcher.add_handler(DECIDE_HANDLER)
 dispatcher.add_handler(EIGHTBALL_HANDLER)
 dispatcher.add_handler(TABLE_HANDLER)
+dispatcher.add_handler(ANIMEQUOTES_HANDLER)
 
 __mod_name__ = "Fun"
 __command_list__ = [
@@ -389,7 +401,7 @@ __command_list__ = [
     "shout",
     "weebify",
     "8ball",
-    
+    "animequotes",
 ]
 __handlers__ = [
     RUNS_HANDLER,
@@ -406,5 +418,6 @@ __handlers__ = [
     SHOUT_HANDLER,
     WEEBIFY_HANDLER,
     EIGHTBALL_HANDLER,
+    ANIMEQUOTES_HANDLER,
     
 ]
