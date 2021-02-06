@@ -87,15 +87,6 @@ def last_fm(update: Update, _):
         )
     msg.reply_text(rep, reply_markup=buttons, parse_mode=ParseMode.HTML)
 
-__help__ = """
-*Last FM:*
- • `/setuser <username>`*:* sets your last.fm username.
- • `/clearuser`*:* removes your last.fm username from the bot's database.
- • `/lastfm`*:* returns what you're scrobbling on last.fm
-"""
-
-__mod_name__ = "Last FM"
-
 SET_USER_HANDLER = CommandHandler("setuser", set_user, pass_args=True)
 CLEAR_USER_HANDLER = CommandHandler("clearuser", clear_user)
 LASTFM_HANDLER = DisableAbleCommandHandler("lastfm", last_fm)
