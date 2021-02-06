@@ -339,6 +339,7 @@ __help__ = """
  • `/sanitize`*:* always use this before /pat or any contact
  • `/pat`*:* pats a user, or get patted
  • `/8ball`*:* predicts using 8ball method 
+ • `/animequotes`*:* gives random anime quotes
 """
 
 SANITIZE_HANDLER = DisableAbleCommandHandler("sanitize", sanitize)
@@ -355,6 +356,8 @@ EIGHTBALL_HANDLER = DisableAbleCommandHandler("8ball", eightball)
 TABLE_HANDLER = DisableAbleCommandHandler("table", table)
 SHOUT_HANDLER = DisableAbleCommandHandler("shout", shout)
 WEEBIFY_HANDLER = DisableAbleCommandHandler("weebify", weebify)
+ANIMEQUOTES_HANDLER = DisableAbleCommandHandler("animequotes", animequotes)
+
 
 dispatcher.add_handler(WEEBIFY_HANDLER)
 dispatcher.add_handler(SHOUT_HANDLER)
@@ -370,7 +373,7 @@ dispatcher.add_handler(RLG_HANDLER)
 dispatcher.add_handler(DECIDE_HANDLER)
 dispatcher.add_handler(EIGHTBALL_HANDLER)
 dispatcher.add_handler(TABLE_HANDLER)
-
+dispatcher.add_handler(ANIMEQUOTES_HANDLER)
 __mod_name__ = "Fun"
 __command_list__ = [
     "runs",
@@ -387,6 +390,7 @@ __command_list__ = [
     "shout",
     "weebify",
     "8ball",
+    "Animequotes",
 ]
 __handlers__ = [
     RUNS_HANDLER,
@@ -403,4 +407,5 @@ __handlers__ = [
     SHOUT_HANDLER,
     WEEBIFY_HANDLER,
     EIGHTBALL_HANDLER,
+    ANIMEQUOTES_HANDLER,
 ]
