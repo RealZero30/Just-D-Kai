@@ -89,7 +89,7 @@ def last_fm(update: Update, _):
 
 __help__ = """
 *Last FM:*
- • `/setuser <username>`*:* sets your last.fm username.
+ • `/setuser<username>`*:* sets your last.fm username.
  • `/clearuser`*:* removes your last.fm username from the bot's database.
  • `/lastfm`*:* returns what you're scrobbling on last.fm
 """
