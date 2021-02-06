@@ -20,7 +20,8 @@ def animequotes(update: Update, context: CallbackContext):
     reply_photo(
         random.choice(animequotes_strings.QUOTES_IMG))
 
-
+__help__ = 
+ 
  
 """
 ANIMEQUOTES_HANDLER = DisableAbleCommandHandler("animequotes", animequotes)
