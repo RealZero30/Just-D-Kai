@@ -373,7 +373,7 @@ dispatcher.add_handler(RLG_HANDLER)
 dispatcher.add_handler(DECIDE_HANDLER)
 dispatcher.add_handler(EIGHTBALL_HANDLER)
 dispatcher.add_handler(TABLE_HANDLER)
-dispatcher.add_handler(ANIMEQUOTES_HANDLER)
+
 __mod_name__ = "Fun"
 __command_list__ = [
     "runs",
@@ -390,7 +390,7 @@ __command_list__ = [
     "shout",
     "weebify",
     "8ball",
-    "Animequotes",
+    
 ]
 __handlers__ = [
     RUNS_HANDLER,
@@ -407,5 +407,5 @@ __handlers__ = [
     SHOUT_HANDLER,
     WEEBIFY_HANDLER,
     EIGHTBALL_HANDLER,
-    ANIMEQUOTES_HANDLER,
+    
 ]
