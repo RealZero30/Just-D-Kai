@@ -227,8 +227,8 @@ Cleaner removed any made up commands that people send in your chat.
  • `/unignoreblue <word>`*:* remove prevent auto cleaning of the command
  • `/listblue`*:* list currently whitelisted commands
  
- *Following are Yakuza only commands, admins cannot use these:*
- • `/gignoreblue <word>`*:* globally ignorea bluetext cleaning of saved word across Saitama.
+ *Following are Owner and Sudo only commands, admins cannot use these:*
+ • `/gignoreblue <word>`*:* globally ignore bluetext cleaning of saved word across Kai.
  • `/ungignoreblue <word>`*:* remove said command from global cleaning list
 """
 
