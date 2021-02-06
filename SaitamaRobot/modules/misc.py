@@ -95,6 +95,8 @@ __help__ = """
  • `/setuser <username>`*:* sets your last.fm username.
  • `/clearuser`*:* removes your last.fm username from the bot's database.
  • `/lastfm`*:* returns what you're scrobbling on last.fm
+*Reverse:*
+ • `/reverse`*:* Does a reverse image search of the media which it was replied to.
 *Wikipedia:*
  • `/wiki <query>`*:* wikipedia your query
 *Wallpapers:*
