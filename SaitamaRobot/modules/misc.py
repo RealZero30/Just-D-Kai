@@ -91,6 +91,10 @@ __help__ = """
  • `/react`*:* Reacts with a random reaction 
 *Urban Dictonary:*
  • `/ud <word>`*:* Type the word or expression you want to search use
+*Last FM:*
+ • `/setuser <username>`*:* sets your last.fm username.
+ • `/clearuser`*:* removes your last.fm username from the bot's database.
+ • `/lastfm`*:* returns what you're scrobbling on last.fm
 *Wikipedia:*
  • `/wiki <query>`*:* wikipedia your query
 *Wallpapers:*
