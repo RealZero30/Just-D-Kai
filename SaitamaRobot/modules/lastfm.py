@@ -88,13 +88,11 @@ def last_fm(update: Update, _):
     msg.reply_text(rep, reply_markup=buttons, parse_mode=ParseMode.HTML)
 
 __help__ = """
-──「 *Last FM:* 」──
--> `/setuser` <username>
-sets your last.fm username.
--> `/clearuser`
-removes your last.fm username from the bot's database.
--> `/lastfm`
-returns what you're scrobbling on last.fm
+*Last FM:*
+ • `/setuser` <username> *:* sets your last.fm username.
+ • `/clearuser`*:* removes your last.fm username from the bot's database.
+ • `/lastfm`*:* returns what you're scrobbling on last.fm
+"""
 
 __mod_name__ = "Last.FM"
 
