@@ -77,15 +77,14 @@ Hi {}, my name is {}!
 // I am an Anime themed group management bot with a lot of Special Features.
 You can find the list of available commands with /help.
 ==========================
-*Maintained With ❤️ By :* [Zero](https://t.me/Anomaliii)
-
+*Maintained By :* [Zero](https://t.me/Anomaliii)
+==========================
 Wanna Add me to your Group? Just click the button below!
 """
 
 HELP_STRINGS = """
 Hey there! My name is *{}*.
-I'm an Anime themed group management Bot to help admins manage their groups! 
-Have a look at the following for an idea of some of \
+I'm an Anime themed group management Bot to help admins manage their groups! Have a look at the following for an idea of some of \
 the things I can help you with.
 *Main* commands available:
  • /help: PM's you this message.
